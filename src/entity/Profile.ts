@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn,JoinColumn } from "typeorm";
 import User from "./User";
 
 @Entity()
@@ -12,6 +12,10 @@ export default class Profile {
   @Column()
   'photo': string;
 
-  @OneToOne(() => User, (user) => user.profile) // specify inverse side as a second parameter
-  'user': User;
+  @OneToOne(() => User, (user) => user.profile
+  , {
+    cascade: true,
+  })
+ @JoinColumn({name:'user_id'})
+ 'user': User;
 }

@@ -1,6 +1,7 @@
 import express, { Application,Request,Response } from "express";
 import dataSource from "../src/database/Config";
 import router from "./routes/Route";
+import errorHandler from "./middleware/errorHandler";
 class Index  {
   public app: Application;
   public port: number;
@@ -20,6 +21,7 @@ class Index  {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use('/api',router)
+    this.app.use(errorHandler)
    }
  
 }

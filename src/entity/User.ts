@@ -4,8 +4,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  PrimaryColumn,
-} from "typeorm";
+ } from "typeorm";
 import Profile from "./Profile";
 
 @Entity()
@@ -13,18 +12,20 @@ export default class User {
   @PrimaryGeneratedColumn()
   'id': number;
 
-  @Column()
+  @Column({"nullable":false})
   'firstName': string;
 
-  @Column()
+  @Column({"nullable":false})
   'lastName': string;
 
-  @Column()
+  @Column({"nullable":false})
   'age': number;
 
-  @OneToOne(() => Profile, (profile) => profile.user, {
-    cascade: true,
-  })
-  @JoinColumn({name:'profile_id'})
-  'profile':Profile;
+  @OneToOne(() => Profile, (profile) => profile.user)
+//  , {
+//      cascade: true,
+//    })
+//  
+  // @JoinColumn({name:'profile_id'})
+   'profile':Profile;
 }

@@ -1,24 +1,33 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Service from "../service/Service";
+//import errormsg from '../errorMessage/error.Message'
 export default class Controller {
-     static userController=(req:Request,res:Response)=>{
-        const result=Service.userService(req.body)
-        res.json({
-            result:result
-        })
+     static userController=async(req:Request,res:Response,next:NextFunction)=>{
+      try{  
+       const result=await Service.userService(req.body)
+        res.send({result})
+      } catch(error:any){
+         console.log(error.message)
+         //next({status:errormsg[error.message].status,message:errormsg[error.message].message})
+         next(error)
+      }
      }
-     static profileController=(req:Request,res:Response)=>{
-        const result=Service.profileService(req.body)
-        res.json({
-            result:result
-        })
+     static profileController=async(req:Request,res:Response,next:NextFunction)=>{
+       try{ 
+       const result=await Service.profileService(req.body)
+        res.status(200).send({result})
+       }catch(error){
+         next(error)
+       }
      }
-     static userProfile=(req:Request,res:Response)=>{
-        const result=Service.userProfile(req.body)
-        res.status(200).json({
-            message:"okay",
-            data:result
-        })
+     static userProfile=async(req:Request,res:Response,next:NextFunction)=>{
+      try{  
+      const result=await Service.userProfile(req.body)
+         res.status(200).send({result})
+      }catch(error){
+         next(error)         
+      }
+        //res.send(result)
      }
 
 }

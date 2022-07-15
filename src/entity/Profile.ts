@@ -6,10 +6,10 @@ export default class Profile {
   @PrimaryGeneratedColumn()
   'id': number;
 
-  @Column()
+  @Column({nullable:false})
   'gender': string;
 
-  @Column()
+  @Column({nullable:false})
   'photo': string;
 
   @OneToOne(() => User, (user) => user.profile

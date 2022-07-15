@@ -2,6 +2,7 @@ import express, { Application,Request,Response } from "express";
 import dataSource from "../src/database/Config";
 import router from "./routes/Route";
 import errorHandler from "./middleware/errorHandler";
+import compression from 'compression'
 class Index  {
   public app: Application;
   public port: number;
@@ -18,6 +19,7 @@ class Index  {
     dataSource.initialize();
   }
   private initializeMiddelware(): void {
+    this.app.use(compression())
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use('/api',router)

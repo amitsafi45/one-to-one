@@ -1,4 +1,4 @@
-export default class errmsg extends Error{
+export default class Errmsg extends Error{
     private status:number=0
     get statuscode():number{
         return this.status
